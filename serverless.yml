@@ -1,0 +1,23 @@
+service: aws-ses-contact-us-form
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - "ses:*"
+          Resource:
+            - "*"
+
+functions:
+  create:
+    handler: index.createContact
+    events:
+      - http:
+          path: contact
+          method: post
+          cors: true
